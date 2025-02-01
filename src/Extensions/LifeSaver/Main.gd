@@ -23,26 +23,31 @@ func _enter_tree() -> void:
 	if open_save_autoload:
 		# Check if timer also exists (This is to ensure no crash occur in Godot 4.4 in future)
 		if open_save_autoload.autosave_timer:
-			save_timer = open_save_autoload.autosave_timer
-			save_timer.timeout.connect(func (): small_delay.start())
-
-			session_loader = preload(
-				"res://src/Extensions/LifeSaver/WayBack/WayBack.tscn"
-			).instantiate()
-			api.dialog.get_dialogs_parent_node().add_child(session_loader)
-
-			# also take the time to remove empty sessions.
+			# Remove empty sessions
 			for session_folder in DirAccess.get_directories_at(extension_data_path):
 				if DirAccess.get_files_at(
 					extension_data_path.path_join(session_folder)
 				).size() == 0:
 					DirAccess.remove_absolute(extension_data_path.path_join(session_folder))
 
-			# Add this session's folder
-			life_path = extension_data_path.path_join(get_id())
-			DirAccess.make_dir_recursive_absolute(life_path)
-
-			ensure_max_session_limit()
+			# Add Session Loader
+			session_loader = preload(
+				"res://src/Extensions/LifeSaver/WayBack/WayBack.tscn"
+			).instantiate()
+			api.dialog.get_dialogs_parent_node().add_child(session_loader)
+			if api.general.get_global().enable_autosave:
+				# Initiate ssaving system
+				save_timer = open_save_autoload.autosave_timer
+				save_timer.timeout.connect(func (): small_delay.start())
+				life_path = extension_data_path.path_join(get_id())
+				DirAccess.make_dir_recursive_absolute(life_path)
+				enforce_max_session_limit()
+			else:
+				api.dialog.show_error(
+"""LifeSaver Extension needs autosave enabled to store backups.
+Please enable it from: %s -> %s -> %s -> %s
+""" % [tr("Edit"), tr("Preferences"), tr("Backup"), tr("Enable autosave")]
+				)
 
 	file_item_id = api.menu.add_menu_item(api.menu.FILE, "Restore a Past Session", session_loader)
 	help_item_id = api.menu.add_menu_item(api.menu.HELP, "Browse LifeSaver Backups", self)
@@ -84,15 +89,13 @@ func _on_small_delay_timeout() -> void:
 		var p_name: String = project.file_name
 
 		if p_backup_path:
-			print("backup path:", p_name)
-			print("life path:", life_path)
 			DirAccess.copy_absolute(
 				p_backup_path,
 				life_path.path_join("(" + p_name + ")_" + p_backup_path.get_file() + ".pxo")
 			)
 
 
-func ensure_max_session_limit():
+func enforce_max_session_limit():
 	var old_folders = DirAccess.get_directories_at(extension_data_path)
 	if old_folders.size() > max_folders:
 		# Remove oldest folder

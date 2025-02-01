@@ -1,0 +1,10 @@
+{
+"author": "Variable",
+"description": "Saves the backup projects to another folder",
+"display_name": "Life Saver",
+"license": "MIT",
+"name": "LifeSaver",
+"nodes": ["Main.tscn"],
+"supported_api_versions": [4],
+"version": "0.2"
+}

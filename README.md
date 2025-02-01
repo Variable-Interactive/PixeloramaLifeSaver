@@ -1,6 +1,9 @@
+![icon](https://github.com/user-attachments/assets/9c295555-3be2-41da-aefa-19bf84f1b788)
+
 # LifeSaver
 
 Tired of forgetting to save and closing [Pixelorama](https://github.com/Orama-Interactive/Pixelorama), and then praying for the backups to be there?
+
 Well now you can finally escape this nightmare 🎉
 
 ![LifeSaver](https://github.com/user-attachments/assets/dd4e63c1-11e3-470e-987a-f7c244d5073c)

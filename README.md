@@ -2,7 +2,7 @@
 
 # LifeSaver
 
-Tired of forgetting to save and closing [Pixelorama](https://github.com/Orama-Interactive/Pixelorama), and then praying for the backups to be there?
+Tired of forgetting to save when closing [Pixelorama](https://github.com/Orama-Interactive/Pixelorama), and then praying for the backups to be there?
 
 Well now you can finally escape this nightmare 🎉
 

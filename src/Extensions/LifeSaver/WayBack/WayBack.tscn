@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dx25yonx40ehr"]
 
-[ext_resource type="Script" path="res://src/Extensions/LifeSaver/WayBack/WayBack.gd" id="1_sbtpo"]
+[ext_resource type="Script" uid="uid://dlld4mki8ajhn" path="res://src/Extensions/LifeSaver/WayBack/WayBack.gd" id="1_sbtpo"]
 
 [node name="WayBack" type="Window"]
 title = "Past Sessions "

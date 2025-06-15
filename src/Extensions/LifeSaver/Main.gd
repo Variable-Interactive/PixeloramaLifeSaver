@@ -20,6 +20,8 @@ func _enter_tree() -> void:
 	## NOTE: use get_node_or_null("/root/ExtensionsApi") to access api.
 	api = get_node_or_null("/root/ExtensionsApi")
 	open_save_autoload = get_node_or_null("/root/OpenSave")
+	if api.general.get_extensions_node().has_method("clear_suspicion"):  # Compatibility with 1.1
+		api.general.get_extensions_node().clear_suspicion("LifeSaver.pck")
 	if open_save_autoload:
 		# Check if timer also exists (This is to ensure no crash occur in Godot 4.4 in future)
 		if open_save_autoload.autosave_timer:
